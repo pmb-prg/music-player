@@ -8,33 +8,40 @@ const nextSong = document.querySelector(".next");
 const backSong = document.querySelector(".back");
 const songImg = document.querySelector(".songimg");
 const songName = document.querySelector(".songname");
+const cover = document.querySelector(".songimg");
 /*-------------------back and next-----------------------*/
-let songIndex = 1;
-let imageIndex = 1;
-let songsName = 1;
+let songIndex = 0;
 const songs =["songs/Bahram Saz.mp3", "songs/2 Faced.mp3", "songs/Pitbull.mp3"];
 const imgs =["img/Bahram - Saz.jpg", "img/2faced.jpg", "img/back in time.jpg"];
 const names =["Bahram-saz", "$LICK-2 Faced", "Pitbull-back in time"];
-
 function playSong(i){
   song.src = songs[i];
   songImg.src = imgs[i];
   songName.innerText = names[i];
   song.currentTime = 0;
   song.play();
+  playImage.src="img/pause.png"
+  play.style.backgroundColor="white";
+  play.style.padding="0";
+  cover.style.filter="brightness(1)";
+  value=false;
   songIndex = i;
-  imageIndex = i;
-  songsName = i;
 }
 
 backSong.addEventListener("click",()=>{
   if(songIndex > 0){
+    playSong(songIndex - 1);
+  }else{
+    songIndex = songs.length;
     playSong(songIndex - 1);
   }
 });
 nextSong.addEventListener("click",()=>{
   if(songIndex < songs.length -1){
     playSong(songIndex + 1);
+  }else{
+    songIndex = 1;
+    playSong(songIndex - 1);
   }
 })
 
@@ -74,12 +81,14 @@ play.addEventListener("click",()=>{
     playImage.src="img/pause.png"
     play.style.backgroundColor="white";
     play.style.padding="0";
+    cover.style.filter="brightness(1)";
     value=false;
   }else{
     song.pause();
     playImage.src="img/play.png"
     play.style.backgroundColor="#860efe";
     play.style.paddingLeft="5px";
+    cover.style.filter="brightness(0)";
     value=true;
   }
   
